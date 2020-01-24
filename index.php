@@ -9,10 +9,10 @@ function checkToken($token) {
 }
 
 
-$headers = apache_request_headers();
-if ($_GET['url'] != "auth" && checkToken($headers['token']) == 0) {
-    http_response_code(401);
-} else {
+//$headers = apache_request_headers();
+//if ($_GET['url'] != "auth" && checkToken($headers['token']) == 0) {
+//    http_response_code(401);
+//} else {
 
 
 //POSTS
@@ -28,8 +28,9 @@ if ($_GET['url'] != "auth" && checkToken($headers['token']) == 0) {
             $ob = new Player();
             echo json_encode($ob->insert($postBody));
             http_response_code(200);
+        } else {
+            http_response_code(405);
         }
-        http_response_code(405);
         
     } elseif ($_SERVER['REQUEST_METHOD'] == "PUT") {
         $postBody = file_get_contents("php://input");
@@ -39,8 +40,9 @@ if ($_GET['url'] != "auth" && checkToken($headers['token']) == 0) {
             $ob = new Player();
             echo json_encode($ob->update($_GET['id'], $postBody));
             http_response_code(200);
+        }else {
+             http_response_code(405);
         }
-        http_response_code(405);
     } elseif ($_SERVER['REQUEST_METHOD'] == "GET") {
         
         if($_GET['url']=='players'){
@@ -51,10 +53,10 @@ if ($_GET['url'] != "auth" && checkToken($headers['token']) == 0) {
                 echo json_encode($ob->getAll());
             }
             http_response_code(200);
+        } else {
+            http_response_code(405);
         }
-        
-        http_response_code(405);
     
 }
     
-}
+//}
