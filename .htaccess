@@ -1,0 +1,17 @@
+# Turn rewrite engine on
+RewriteEngine on
+# Cors
+Header always set Access-Control-Allow-Origin "*"
+Header always set Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Access-Control-Allow-Origin"
+Header always set Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS"
+
+#POST do LOGIN 
+RewriteRule ^auth index.php?url=auth [L,QSA]
+
+RewriteRule ^users/([0-9]+) index.php?url=users&id=$1 [L,QSA]
+RewriteRule ^users index.php?url=users [L,QSA]
+
+RewriteRule ^players/([0-9]+) index.php?url=players&id=$1 [L,QSA]
+RewriteRule ^players index.php?url=players [L,QSA]
+
+
