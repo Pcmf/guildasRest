@@ -73,8 +73,9 @@ class User {
 
         //Dados 
         $payload = [
-            'iss' => 'CALIKA',
-            'nome' => $resp->nome,
+            'iss' => 'GUILDA',
+            'nome' => $resp->name,
+            'tipo' => $resp->tipo
         ];
 
         $payload = json_encode($payload);

@@ -1,11 +1,13 @@
 <?php
 require_once 'class/Player.php';
 require_once 'class/User.php';
+require_once 'class/Guilda.php';
 
 
 function checkToken($token) {
     $obj = new User();
-    return $obj->checkToken($token)->result;
+    return 1;
+   // return $obj->checkToken($token)->result;
 }
 
 
@@ -52,6 +54,10 @@ function checkToken($token) {
             } else {
                 echo json_encode($ob->getAll());
             }
+            http_response_code(200);
+        } elseif ($_GET['url']=='guildas') {
+            $ob = new Guilda();
+            echo json_encode($ob->getAll());
             http_response_code(200);
         } else {
             http_response_code(405);
