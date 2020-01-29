@@ -2,6 +2,7 @@
 require_once 'class/Player.php';
 require_once 'class/User.php';
 require_once 'class/Guilda.php';
+require_once 'class/Email.php';
 
 
 function checkToken($token) {
@@ -26,10 +27,12 @@ function checkToken($token) {
             $user = new User();
             echo json_encode($user->checkUser($postBody->username, $postBody->password));
             http_response_code(200);
+            
         } elseif ($_GET['url']=='players') {
             $ob = new Player();
             echo json_encode($ob->insert($postBody));
             http_response_code(200);
+            
         } else {
             http_response_code(405);
         }
@@ -40,8 +43,18 @@ function checkToken($token) {
         
         if($_GET['url']=='players'){
             $ob = new Player();
-            echo json_encode($ob->update($_GET['id'], $postBody));
+            if($_GET['id']==0){
+               echo json_encode($ob->insert($postBody)); 
+            }else {
+                echo json_encode($ob->update($_GET['id'], $postBody));
+            }
             http_response_code(200);
+            
+        } elseif ($_GET['url']=='emails') {
+            $ob = new Email();
+            echo json_encode($ob->sendEmail($postBody));
+            http_response_code(200);
+            
         }else {
              http_response_code(405);
         }
@@ -55,10 +68,21 @@ function checkToken($token) {
                 echo json_encode($ob->getAll());
             }
             http_response_code(200);
+            
         } elseif ($_GET['url']=='guildas') {
             $ob = new Guilda();
             echo json_encode($ob->getAll());
             http_response_code(200);
+            
+        } elseif ($_GET['url']=='emails') {
+            $ob = new Email();
+            if(isset($_GET['id'])){
+                echo json_encode($ob->getById($_GET['id']));
+            } else {
+                echo json_encode($ob->getAll());
+            }
+            http_response_code(200);
+            
         } else {
             http_response_code(405);
         }

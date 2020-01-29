@@ -16,3 +16,6 @@ RewriteRule ^players index.php?url=players [L,QSA]
 
 RewriteRule ^guildas/([0-9]+) index.php?url=guildas&id=$1 [L,QSA]
 RewriteRule ^guildas index.php?url=guildas [L,QSA]
+
+RewriteRule ^emails/([0-9]+) index.php?url=emails&id=$1 [L,QSA]
+RewriteRule ^emails index.php?url=emails [L,QSA]
