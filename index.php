@@ -52,7 +52,7 @@ function checkToken($token) {
             
         } elseif ($_GET['url']=='emails') {
             $ob = new Email();
-            echo json_encode($ob->sendEmail($postBody));
+            echo json_encode($ob->sendEmail($_GET['id'], $postBody));
             http_response_code(200);
             
         }else {

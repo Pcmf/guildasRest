@@ -33,13 +33,14 @@ class Email {
         //TODO
         $erro = "Não implementado";
         //Registar na BD
-        $this->insert($obj, $erro);
+        
+        return $this->insert($obj, $erro);
       
     }
 
     private function insert($obj, $erro) {
         try {
-            $this->db->queryInsert("INSERT INTO email(assunto, guilda, corpoemail, erro) "
+            $this->db->queryInsert("INSERT INTO emails(assunto, guilda, corpoemail, erro) "
                     . " VALUES(:assunto, :guilda, :corpoemail, :erro)",
                     [':assunto' => $obj->assunto, ':guilda' => $obj->guilda, ':corpoemail' => $obj->corpoemail, ':erro' => $erro]);
             return $this->db->lastInsertId();
