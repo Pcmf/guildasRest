@@ -47,7 +47,7 @@ class Email {
         }
      //   $erro = "Não implementado";
         //Registar na BD
-        return $enviados_para;
+        // return $enviados_para;
         return $this->insert($obj, $enviados_para);
       
     }

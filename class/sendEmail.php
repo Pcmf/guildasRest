@@ -6,6 +6,10 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
+require 'vendor/phpmailer/PHPMailer/src/Exception.php';
+require 'vendor/phpmailer/PHPMailer/src/PHPMailer.php';
+require 'vendor/phpmailer/PHPMailer/src/SMTP.php';
+
 // Load Composer's autoloader
 require 'vendor/autoload.php';
 // Carregar as configurações do email
@@ -25,7 +29,7 @@ class sendEmail {
         echo json_encode($dt);
         try {
             //Server settings
-            $this->mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+            $this->mail->SMTPDebug = 1;//SMTP::DEBUG_SERVER;                      // Enable verbose debug output
             $this->mail->isSMTP();                                            // Send using SMTP
             $this->mail->Host = HOST;                    // Set the SMTP server to send through
             $this->mail->SMTPAuth = true;                                   // Enable SMTP authentication
