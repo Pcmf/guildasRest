@@ -36,20 +36,23 @@ class Email {
         } else {
            $list = $this->db->query("SELECT id, name, email, guilda FROM players WHERE ative=1 AND email IS NOT NULL AND guilda=:guilda ", [':guilda'=>$to]);
         }
-        $email = new sendEmail();
+        $countErros = 0;
         $enviados_para ='';
         foreach ($list as $ln) {
+            $email = new sendEmail();
             $obj->emailTo = $ln->email;
             $obj->name = $ln->name;
             $obj->guilda = $ln->guilda;
             $erro = $email->send($obj);
+            $erro != 0 ? $countErros++ : null;
             $enviados_para .= $obj->emailTo."; erro: ".$erro."; "; 
         }
      //   $erro = "Não implementado";
         //Registar na BD
-        return $enviados_para;
-        return $this->insert($obj, $enviados_para);
-      
+       //  return $enviados_para;
+        
+    //    return "{id: {$this->insert($obj, $enviados_para)} , erros: {$countErros}}";
+            return $this->insert($obj, $enviados_para);
     }
 
     private function insert($obj, $report) {
@@ -60,7 +63,7 @@ class Email {
             return $this->db->lastInsertId();
             
         } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
+            return $exc->getTraceAsString();
         }
     }
 

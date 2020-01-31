@@ -17,15 +17,14 @@ class sendEmail {
 
     public function __construct() {
         // Instantiation and passing `true` enables exceptions
-        $this->mail = new PHPMailer(true);
+        $this->mail = new PHPMailer(false);
 
     }
     
     public function send($dt) {
-        echo json_encode($dt);
         try {
             //Server settings
-            $this->mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+         //   $this->mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
             $this->mail->isSMTP();                                            // Send using SMTP
             $this->mail->Host = HOST;                    // Set the SMTP server to send through
             $this->mail->SMTPAuth = true;                                   // Enable SMTP authentication
@@ -50,9 +49,9 @@ class sendEmail {
             $this->mail->AltBody = $dt->corpoemail;
 
             $this->mail->send();
-            echo 'Message has been sent';
+            return 0;
         } catch (Exception $e) {
-            echo "Message could not be sent. Mailer Error: {$this->mail->ErrorInfo}";
+            return "Message could not be sent. Mailer Error: {$this->mail->ErrorInfo}";
         }
     }
 }

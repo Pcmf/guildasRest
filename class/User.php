@@ -34,6 +34,7 @@ class User {
                 return $this->generateToken($r);
             //    return '{"token": "'.$this->generateToken($r).'"}';
             }
+            
         }
         return false;
     }
