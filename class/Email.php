@@ -49,10 +49,9 @@ class Email {
         }
      //   $erro = "Não implementado";
         //Registar na BD
-       //  return $enviados_para;
-        
-    //    return "{id: {$this->insert($obj, $enviados_para)} , erros: {$countErros}}";
-            return $this->insert($obj, $enviados_para);
+
+        return $this->insert($obj, $enviados_para);
+      
     }
 
     private function insert($obj, $report) {
