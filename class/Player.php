@@ -31,11 +31,11 @@ class Player {
     public function insert($obj) {
         $obj = $this->validateObj($obj, null);
         try {
-            $this->db->queryInsert("INSERT INTO players(name, birthyear, telm, email, linkface, guilda, txdeath, txheadshot, ative, nikname, date)"
-                    . " VALUES(:name, :birthyear, :telm, :email, :linkface, :guilda, :txdeath, :txheadshot, :ative, :nikname, NOW())",
+            $this->db->queryInsert("INSERT INTO players(name, birthyear, telm, email, linkface, guilda, txdeath, txheadshot, honra, honraatual, ative, nikname, date)"
+                    . " VALUES(:name, :birthyear, :telm, :email, :linkface, :guilda, :txdeath, :txheadshot, :honra, :honraatual, :ative, :nikname, NOW())",
                     [':name' => $obj->name, ':birthyear' => $obj->birthyear, ':telm' => $obj->telm, ':email' => $obj->email, ':linkface' => $obj->linkface,
                         ':guilda' => $obj->guilda, ':txdeath' => $obj->txdeath, ':txheadshot' => $obj->txheadshot, ':ative' => $obj->ative,
-                        ':nikname' => $obj->nikname]);
+                         ':honra' => $obj->honra, ':honraatual' => $obj->honraatual, ':nikname' => $obj->nikname]);
             return $this->db->lastInsertId();
         } catch (Exception $exc) {
             
@@ -47,11 +47,11 @@ class Player {
         $obj = $this->validateObj($obj, $this->getById($id)[0]);
         try {
             return $this->db->query("UPDATE players SET name=:name, birthyear=:birthyear, telm=:telm, email=:email, linkface=:linkface,"
-                            . " guilda=:guilda, txdeath=:txdeath, txheadshot=:txheadshot, ative=:ative, nikname=:nikname, updata=NOW()"
+                            . " guilda=:guilda, txdeath=:txdeath, txheadshot=:txheadshot, honra=:honra, honraatual=:honraatual, ative=:ative, nikname=:nikname, updata=NOW()"
                             . " WHERE id=:id",
                             [':name'=>$obj->name, ':birthyear'=>$obj->birthyear, ':telm'=>$obj->telm, ':email'=>$obj->email, ':linkface'=>$obj->linkface,
                                 ':guilda'=>$obj->guilda, ':txdeath'=>$obj->txdeath, ':txheadshot'=>$obj->txheadshot, ':ative'=>$obj->ative,
-                                ':nikname'=>$obj->nikname, ':id'=>$id]);
+                                 ':honra' => $obj->honra, ':honraatual' => $obj->honraatual, ':nikname'=>$obj->nikname, ':id'=>$id]);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -80,6 +80,8 @@ class Player {
         isset($obj->txdeath) ? null : (isset($old->txdeath) ? $obj->txdeath = $old->txdeath : $obj->txdeath = 'NULL');
         isset($obj->txheadshot) ? null : (isset($old->txheadshot) ? $obj->txheadshot = $old->txheadshot : $obj->txheadshot = 'NULL');
         isset($obj->ative) ? null : (isset($old->ative) ? $obj->ative = $old->ative : $obj->ative = 'NULL');
+        isset($obj->honra) ? null : (isset($old->honra) ? $obj->honra = $old->honra : $obj->honra = 'NULL');
+        isset($obj->honraatual) ? null : (isset($old->honraatual) ? $obj->honraatual = $old->honraatual : $obj->honraatual = 'NULL');
         isset($obj->nikname) ? null : (isset($old->nikname) ? $obj->nikname = $old->nikname : $obj->nikname = 'NULL');
         
         return $obj;
